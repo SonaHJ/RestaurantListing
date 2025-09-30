@@ -1,9 +1,6 @@
 package com.sona.restaurantListing.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +9,17 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(
+        name = "restaurant_entity",
+        indexes = {
+                @Index(name = "idx_restaurant_name", columnList = "restaurantName"),
+                @Index(name = "idx_city", columnList = "restaurantCity")
+        },
+        uniqueConstraints = @UniqueConstraint(columnNames = {"restaurantName", "restaurantCity"})
+)
 public class RestaurantEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int restaurantId;
     private String restaurantName;
     private String restaurantPhone;
